@@ -38,6 +38,16 @@
   border-collapse: collapse;
 }
 
+.headerRow {
+  text-align: left;
+  border-bottom: 2px solid #bbb;
+}
+
+.headerCell {
+  padding: 8px;
+  font-weight: 600;
+}
+
 .row {
   border-bottom: 1px solid #ddd;
 }

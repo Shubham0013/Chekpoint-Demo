@@ -5,11 +5,15 @@ import { ThemeContext } from "../context/ThemeContext";
 
 // Mock useFetch hook
 vi.mock("../hooks/useFetch", () => ({
-  useFetch: () => [
-    { id: 1, name: "Zoo" },
-    { id: 2, name: "Apple" },
-    { id: 3, name: "Mango" },
-  ],
+  useFetch: () => ({
+    data: [
+      { id: 1, name: "Zoo" },
+      { id: 2, name: "Apple" },
+      { id: 3, name: "Mango" },
+    ],
+    loading: false,
+    error: "",
+  }),
 }));
 
 function renderWithTheme(ui, theme = "light") {

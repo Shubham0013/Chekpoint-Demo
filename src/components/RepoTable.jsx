@@ -5,7 +5,7 @@ import { useFetch } from "../hooks/useFetch";
 
 export default function RepoTable() {
   const { theme } = useTheme();
-  const { data, error, loading } = useFetch(
+  const { data: repoData = [], error, loading } = useFetch(
     "https://api.github.com/users/facebook/repos",
   );
 
@@ -16,7 +16,7 @@ export default function RepoTable() {
     theme === "light" ? styles.containerLight : styles.containerDark;
 
   const filteredRepos = useMemo(() => {
-    let result = data;
+    let result = repoData;
 
     // Search filter
     if (search.trim()) {
@@ -33,7 +33,7 @@ export default function RepoTable() {
     });
 
     return result;
-  }, [data, search, sortOrder]);
+  }, [repoData, search, sortOrder]);
   if (error) return <p>{error}</p>;
   if (loading) return <p>...Loading</p>;
   return (
@@ -55,12 +55,17 @@ export default function RepoTable() {
           onChange={(e) => setSortOrder(e.target.value)}
           className={styles.select}
         >
-          <option value="asc">Accending</option>
-          <option value="desc">Decending</option>
+          <option value="asc">A → Z</option>
+          <option value="desc">Z → A</option>
         </select>
       </div>
 
       <table className={styles.table}>
+        <thead>
+          <tr className={styles.headerRow}>
+            <th className={styles.headerCell}>Repository</th>
+          </tr>
+        </thead>
         <tbody>
           {filteredRepos.map((repo) => (
             <tr
